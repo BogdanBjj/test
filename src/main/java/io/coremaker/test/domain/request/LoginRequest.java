@@ -2,18 +2,18 @@ package io.coremaker.test.domain.request;
 
 import javax.validation.constraints.Email;
 
-public class UserCreateRequest {
+public class LoginRequest {
 
     @Email
     private String email;
     private String password;
 
-    public String getUsername() {
+    public String getEmail() {
         return email;
     }
 
-    public void setUsername(String username) {
-        this.email = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {

@@ -35,6 +35,7 @@ public class UserServiceImpl implements UserService {
         CustomUser user = new CustomUser();
         user.setUsername(request.getUsername());
         user.setPassword(bCryptPasswordEncoder.encode(request.getPassword()));
+
         repository.save(user);
     }
 }

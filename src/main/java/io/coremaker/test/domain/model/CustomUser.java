@@ -13,6 +13,7 @@ public class CustomUser {
     private Long id;
     private String username;
     private String password;
+    private String token;
 
     public CustomUser() {
     }
@@ -39,5 +40,13 @@ public class CustomUser {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }
