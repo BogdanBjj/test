@@ -4,6 +4,11 @@ public class CustomToken {
     private String header;
     private String token;
 
+    public CustomToken(String header, String token) {
+        this.header = header;
+        this.token = token;
+    }
+
     public String getHeader() {
         return header;
     }

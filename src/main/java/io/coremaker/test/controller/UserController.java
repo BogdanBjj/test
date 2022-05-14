@@ -2,7 +2,7 @@ package io.coremaker.test.controller;
 
 import io.coremaker.test.domain.request.LoginRequest;
 import io.coremaker.test.domain.request.UserCreateRequest;
-import io.coremaker.test.domain.response.CustomToken;
+import io.coremaker.test.domain.response.UserResponse;
 import io.coremaker.test.filter.JwtProvider;
 import io.coremaker.test.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -10,9 +10,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -42,5 +40,10 @@ public class UserController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 //        ResponseEntity.ok(new CustomToken(jwtProvider.generateToken(authentication)));
         return ResponseEntity.ok(jwtProvider.generateToken(authentication));
+    }
+
+    @GetMapping("users/{email}")
+    public UserResponse users(@RequestParam("email") String email) {
+         return userService.findByUsername(email);
     }
 }

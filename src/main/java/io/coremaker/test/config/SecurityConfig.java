@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/signup", "/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .addFilter(new JWTAuthenticationFilter(jwtProvider, authenticationUserDetailService))
+                .addFilterBefore(new JWTAuthenticationFilter(jwtProvider, authenticationUserDetailService), UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 //                .and()
 //                .addFilterBefore(new JWTAuthenticationFilter(jwtProvider, authenticationUserDetailService), UsernamePasswordAuthenticationFilter.class);
