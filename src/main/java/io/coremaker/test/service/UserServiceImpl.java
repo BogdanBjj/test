@@ -22,8 +22,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponse findByUsername(String email) {
-        return repository.findByUsername(email)
+    public UserResponse findByUsername(String username) {
+        return repository.findByUsername(username)
                 .map(u -> new UserResponse(u.getUsername()))
                 .orElseThrow(EntityNotFoundException::new);
     }

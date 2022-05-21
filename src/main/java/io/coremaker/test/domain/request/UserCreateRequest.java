@@ -4,16 +4,16 @@ import javax.validation.constraints.Email;
 
 public class UserCreateRequest {
 
-    @Email
-    private String email;
+    @Email(message = "invalid email")
+    private String username;
     private String password;
 
     public String getUsername() {
-        return email;
+        return username;
     }
 
     public void setUsername(String username) {
-        this.email = username;
+        this.username = username;
     }
 
     public String getPassword() {

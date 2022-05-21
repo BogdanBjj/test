@@ -36,14 +36,14 @@ public class UserController {
     @PostMapping("login")
     public ResponseEntity<?> authenticate(@Valid @RequestBody LoginRequest request) {
         Authentication authentication = authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+                .authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
 //        ResponseEntity.ok(new CustomToken(jwtProvider.generateToken(authentication)));
         return ResponseEntity.ok(jwtProvider.generateToken(authentication));
     }
 
     @GetMapping("users/{email}")
-    public UserResponse users(@RequestParam("email") String email) {
-         return userService.findByUsername(email);
+    public UserResponse users(@RequestParam("username") String username) {
+         return userService.findByUsername(username);
     }
 }
