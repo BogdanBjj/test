@@ -42,7 +42,7 @@ public class UserController {
         return ResponseEntity.ok(jwtProvider.generateToken(authentication));
     }
 
-    @GetMapping("users/{email}")
+    @GetMapping("users")
     public UserResponse users(@RequestParam("username") String username) {
          return userService.findByUsername(username);
     }
