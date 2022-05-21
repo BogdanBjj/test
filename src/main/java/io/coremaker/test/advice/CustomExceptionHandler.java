@@ -19,7 +19,7 @@ public class CustomExceptionHandler {
 
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public String handleRuntimeExceptions(EntityNotFoundException ex) {
+    public String handleRuntimeExceptions(RuntimeException ex) {
         return ex.getMessage();
     }
 }
