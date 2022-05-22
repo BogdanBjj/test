@@ -4,6 +4,14 @@ import javax.validation.constraints.Email;
 
 public class LoginRequest {
 
+    public LoginRequest() {
+    }
+
+    public LoginRequest(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
     @Email(message = "invalid email")
     private String username;
     private String password;
