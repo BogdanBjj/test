@@ -75,6 +75,29 @@ public class TestApplicationTests {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(login)))
                 .andExpect(status().isOk());
+//                .andReturn().getResponse().getContentAsString()
+    }
+
+    @Test
+    public void signupValid() throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        LoginRequest login = new LoginRequest("bo@gmail.com", "123");
+
+        mvc.perform(post("/signup")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(login)))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void signupInvalid() throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        LoginRequest login = new LoginRequest("bogmail.com", "123");
+
+        mvc.perform(post("/signup")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(login)))
+                .andExpect(status().isBadRequest());
     }
 
 }
