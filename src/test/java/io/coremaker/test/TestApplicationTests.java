@@ -48,7 +48,7 @@ public class TestApplicationTests {
     @Test
     public void loginUserNotFound() throws Exception {
         mvc.perform(formLogin("/login").user("b").password("123"))
-                .andExpect(status().isNotFound())
+                .andExpect(status().isBadRequest())
                 .andExpect(unauthenticated());
     }
 

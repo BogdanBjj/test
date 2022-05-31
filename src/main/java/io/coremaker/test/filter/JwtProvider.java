@@ -37,8 +37,8 @@ public class JwtProvider {
                     .setSigningKey(Constants.SECRET)
                     .parseClaimsJws(authToken);
             return true;
-        } catch (MalformedJwtException | ExpiredJwtException | UnsupportedJwtException | IllegalArgumentException ex) {
-            throw new RuntimeException("Something went wrong during token validation process: " + ex.getMessage());
+        } catch (MalformedJwtException | ExpiredJwtException | SignatureException | IllegalArgumentException ex) {
+            throw ex;
         }
     }
 }

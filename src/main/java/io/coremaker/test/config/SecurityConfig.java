@@ -1,5 +1,6 @@
 package io.coremaker.test.config;
 
+import aj.org.objectweb.asm.Handle;
 import io.coremaker.test.filter.JWTAuthenticationFilter;
 import io.coremaker.test.filter.JwtProvider;
 import io.coremaker.test.service.AuthenticationUserDetailService;
@@ -13,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -21,10 +23,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final AuthenticationUserDetailService authenticationUserDetailService;
 
-    public SecurityConfig(JwtProvider jwtProvider, BCryptPasswordEncoder bCryptPasswordEncoder, AuthenticationUserDetailService authenticationUserDetailService) {
+    private final HandlerExceptionResolver handlerExceptionResolver;
+
+    public SecurityConfig(JwtProvider jwtProvider, BCryptPasswordEncoder bCryptPasswordEncoder,
+                          AuthenticationUserDetailService authenticationUserDetailService, HandlerExceptionResolver handlerExceptionResolver) {
         this.jwtProvider = jwtProvider;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.authenticationUserDetailService = authenticationUserDetailService;
+        this.handlerExceptionResolver = handlerExceptionResolver;
     }
 
     @Override
@@ -33,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/signup", "/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .addFilterBefore(new JWTAuthenticationFilter(jwtProvider, authenticationUserDetailService), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JWTAuthenticationFilter(jwtProvider, authenticationUserDetailService, handlerExceptionResolver), UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 //                .and()
 //                .addFilterBefore(new JWTAuthenticationFilter(jwtProvider, authenticationUserDetailService), UsernamePasswordAuthenticationFilter.class);
